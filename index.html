@@ -3,7 +3,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Lilie</title>
+        <title>The Perfect Pourover</title>
         <meta charset="utf-8" />
         <!-- ensures responsiveness -->
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,22 +15,69 @@
             crossorigin="anonymous"
         >
         <link rel="stylesheet" href="style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="index.js"></script>
     </head>
-    <body class="page">
+    <body class="page" onload="register();">
         <div class="container">
+            <!-- <div>
+                <p class="greeting-id">The ID is </p>
+                <p class="greeting-content">The content is </p>
+            </div> -->
             <div class="p-3 mb-2">
-                <h1>Hey, I'm Lilie. 👋🏻 Nice to meet you!</h1>
-                <h2>I'm a big fan of drinking coffee and coding, especially at the same time.</h2>
+                <h1>How to make the ~perfect~ pourover ☕</h1>
+                <h5>Want to some good coffee, you say? You've come to the right place. Let's get started.</h5>
             </div>
 
-            <div class="p-3 mb-2">
+            <!-- <div class="p-3 mb-2">
                 <h4 class="text-muted">I tweet.</h4>
                 <a class="twitter-timeline" href="https://twitter.com/liliedelamotte" data-tweet-limit="1" data-width="399" ></a>
                 <script async src="http://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div> -->
+
+            <div class="p-3 mb-2">
+                <div class="row">
+                    <div class="col">
+                        <h3>Step One: Gather the Materials</h3>
+                        <p>
+                            The materials you use to make coffee have a huge impact on the 
+                            quality of your drink. Click on each item to learn more about it:
+                        </p>
+                        <ul class="list-group list-group">
+                            <li class="list-group-item list-group-item-action" id="pourover-contraption">Pourover contraption</li>
+                            <li class="list-group-item list-group-item-action" id="filters">Filters</li>
+                            <li class="list-group-item list-group-item-action" id="coffee-beans">Coffee beans</li>
+                            <li class="list-group-item list-group-item-action" id="coffee-grinder">Coffee grinder</li>
+                            <li class="list-group-item list-group-item-action" id="gooseneck-kettle">Gooseneck kettle</li>
+                            <li class="list-group-item list-group-item-action" id="scale">Scale</li>
+                        </ul>
+                        <p id="more-information"></p>
+                    </div>
+                    <div class="col">
+                        <img id="materials-image" src="materials.jpg" class="rounded float-right img-fluid" alt="materials">
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3 mb-2">
+                <h3>Step Two: Preparation</h3>
+            </div>
+
+            <div class="p-3 mb-2">
+                <h3>Step Three: Pour, pour, pour!</h3>
+            </div>
+
+            <div class="p-3 mb-2">
+                <h3>Step Four: Clean Up</h3>
+            </div>
+
+            <div class="p-3 mb-2">
+                <h3>Some Final Words</h3>
             </div>
 
             <!-- a series of connection buttons -->
             <div class="p-3 mb-2">
+                <p>Learn more about me, the coffee lover who authored this site.</p>
                 <a class="link" href="https://github.com/liliedelamotte">
                     <button type="button" class="btn btn-outline-primary" role="button">I code.</button>
                 </a>
