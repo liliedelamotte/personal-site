@@ -15,28 +15,36 @@ function register() {
             var img = document.getElementById("materials-image");
 
             if (this.id == "pourover-contraption") {
-                moreInformation.innerHTML = "A pourover contraption is a vital part of this process.";
+                moreInformation.innerHTML = 
+                "A pourover contraption is a vital part of this process.";
                 img.src = "pourover.jpg";
             }
             else if (this.id == "filters") {
-                moreInformation.innerHTML = "filters";
-                img.src = "filter.png";
+                moreInformation.innerHTML = 
+                "Filters keep the coffee clean and prevent coffee grounds from getting into the coffee." +
+                " Filters typically come both bleached and unbleached, but either will work for this brewing method.";
+                img.src = "filter.jpeg";
             }
             else if (this.id == "coffee-beans") {
-                moreInformation.innerHTML = "coffee beans";
+                moreInformation.innerHTML = "Coffee beans are the most important part of the entire process. " +
+                "Typically light roasts allow for the most flavor. For the highest quality coffee, beans" +
+                " should not be older than about two weeks.";
                 img.src = "beans.jpeg";
             }
             else if (this.id == "coffee-grinder") {
-                moreInformation.innerHTML = "coffee grinder";
+                moreInformation.innerHTML = "There are many kinds of grinders that can be used. Burr grinders" +
+                " are highly regarded by coffee connoisseurs. For the best cup, coffee beans should be ground" +
+                " just before brewing, therefore having a at-home grinder is vital to the process.";
                 img.src = "grinder.jpg";
             }
             else if (this.id == "gooseneck-kettle") {
-                moreInformation.innerHTML = "gooseneck kettle";
+                moreInformation.innerHTML = "Gooseneck kettles have a unique shape to allow the brewer to have" +
+                " maximum control over the amount of water released at a time.";
                 img.src = "kettle.jpeg";
             }
             else {
-                moreInformation.innerHTML = "scale";
-                img.src = "scale.jpg";
+                moreInformation.innerHTML = "Scales allow for consistency in the ratio between beans and water.";
+                img.src = "scale.jpeg";
             }
         });
     });
