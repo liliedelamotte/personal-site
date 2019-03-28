@@ -39,7 +39,8 @@ function register() {
             }
             else if (this.id == "gooseneck-kettle") {
                 moreInformation.innerHTML = "Gooseneck kettles have a unique shape to allow the brewer to have" +
-                " maximum control over the amount of water released at a time.";
+                " maximum control over the amount of water released at a time. Additionally, it is easier to" +
+                " ensure a circular motion of pouring with a gooseneck kettle.";
                 img.src = "img/kettle.jpeg";
             }
             else {

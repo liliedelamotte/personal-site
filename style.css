@@ -16,6 +16,14 @@
     text-decoration: none;
 }
 
-#information {
-    visibility: hidden;
+.row {
+    padding-top: 5%;
+}
+
+#more-information {
+    padding-top: 5%;
+}
+
+.learn-more {
+    padding-top: 100px;
 }
