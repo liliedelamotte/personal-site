@@ -1,5 +1,26 @@
-/* gets rid of link decoration */
+/* 
+    ldelamotte17@georgefox.edu
+    Final Project Pt. I
+    2019-04-03
+*/
 
+.row {
+    padding-top: 5%;
+}
+
+#more-information {
+    padding-top: 5%;
+}
+
+.about-me {
+    padding-top: 5%;
+}
+
+.top-buffer {
+    padding-top: 5%;
+}
+
+/* gets rid of link decoration on the connection buttons */
 .link:link {
     text-decoration: none;
 }
@@ -14,16 +35,4 @@
 
 .link:active {
     text-decoration: none;
-}
-
-.row {
-    padding-top: 5%;
-}
-
-#more-information {
-    padding-top: 5%;
-}
-
-.learn-more {
-    padding-top: 100px;
 }

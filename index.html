@@ -1,10 +1,20 @@
-<!-- liliedelamotte -->
+<!-- 
+    ldelamotte17@georgefox.edu
+    Final Project Pt. I
+    2019-04-03
+-->
 
 <!doctype html>
 <html lang="en">
     <head>
         <title>The Perfect Pourover</title>
         <meta charset="utf-8" />
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+
         <!-- ensures responsiveness -->
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- brings in Bootstrap -->
@@ -14,27 +24,26 @@
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
             crossorigin="anonymous"
         >
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
         <link rel="stylesheet" href="style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="index.js"></script>
     </head>
-    <body class="page" onload="register();">
-        <div class="container">
-            <!-- <div>
-                <p class="greeting-id">The ID is </p>
-                <p class="greeting-content">The content is </p>
-            </div> -->
+    <body class="page">
+
+        <!-- header -->
+        <div class="container" 
+            data-aos="fade-up"
+            data-aos-offset="200"
+            data-aos-delay="50"
+            data-aos-duration="1000"
+            data-aos-easing="ease-in-out">
             <div class="p-3 mb-2">
                 <h1>How to make the ~perfect~ pourover ☕</h1>
                 <h5>Want to make some good coffee, you say? You've come to the right place. Let's get started.</h5>
             </div>
 
-            <!-- <div class="p-3 mb-2">
-                <h4 class="text-muted">I tweet.</h4>
-                <a class="twitter-timeline" href="https://twitter.com/liliedelamotte" data-tweet-limit="1" data-width="399" ></a>
-                <script async src="http://platform.twitter.com/widgets.js" charset="utf-8"></script>
-            </div> -->
-
+            <!-- step one: gather the materials -->
             <div class="p-3 mb-2">
                 <div class="row">
                     <div class="col">
@@ -51,7 +60,7 @@
                             <li class="list-group-item list-group-item-action" id="gooseneck-kettle">Gooseneck kettle</li>
                             <li class="list-group-item list-group-item-action" id="scale">Scale</li>
                         </ul>
-                        <p id="more-information" ></p>
+                        <p id="more-information"></p>
                     </div>
                     <div class="col">
                         <img id="materials-image" src="img/materials.jpg" class="rounded img-fluid" alt="materials">
@@ -59,6 +68,7 @@
                 </div>
             </div>
 
+            <!-- step two: preparation -->
             <div class="p-3 mb-2">
                 <div class="row">
                     <div class="col">
@@ -76,6 +86,7 @@
                 </div>
             </div>
 
+            <!-- step three: pour, pour, pour! -->
             <div class="p-3 mb-2">
                 <div class="row">
                     <div class="col">
@@ -109,14 +120,18 @@
                 </div>
             </div>
 
+            <!-- step four: clean up -->
             <div class="p-3 mb-2">
                 <h3>Step Four: Clean Up</h3>
                 <p>
                     Cleaning your contraption is an important step and allows for better coffee later. Avoid cleaning with soap and 
-                    use just hot water instead. Remember that your filter and used coffee grounds can be composted as well.
+                    use just hot water instead. Remember that your filter and used coffee grounds can be composted as well. Note that
+                    the coffee loses much of its rich flavor if it sits out for too long. Do what you can do make just as much coffee
+                    as you need, no more, no less.
                 </p>
             </div>
 
+            <!-- some final words -->
             <div class="p-3 mb-2">
                 <h3>Some Final Words</h3>
                 <p>
@@ -125,14 +140,32 @@
                     their coffee to be stronger (in which case your ratio might look more like 13:1) and others prefer it
                     to be slightly less strong (so your ratio might be closer to 19:1 or 20:1). The kind of beans you use
                     may also affect the type of cup you make, along with how fine you grind the beans. Experiment, and take
-                    joy in this newfound morning (and afternoon and evening) routine.
+                    joy in this newfound morning (and afternoon and evening) routine. 👏🏻
                 </p>
                 <img src="img/mug.jpeg" class="rounded img-fluid" alt="mug">
             </div>
 
+            <!-- allows user to search for local coffee shops -->
+            <div class="p-3 mb-2">
+                <p>
+                    Not so into making coffee yourself? No worries. Enter your 
+                    current location to find some of the best coffee near you!
+                </p>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="location" placeholder="location, ex. Portland" aria-label="Recipient's username" aria-describedby="button-addon2">
+                </div>
+            </div>      
+
+            <div class="p-3 mb-2">
+                <!-- displays the searched location -->
+                <div id="coffee-search"></div>
+                <!-- search results-->
+                <div class="row justify-content-between" id="results"></div>
+            </div>
+
             <!-- a series of connection buttons -->
             <div class="p-3 mb-2">
-                <p class="learn-more">Learn more about me, the coffee lover who authored this site.</p>
+                <p class="about-me">Learn more about me, the coffee lover who built and authored this site. 👩🏻‍💻</p>
                 <a class="link" href="https://github.com/liliedelamotte">
                     <button type="button" class="btn btn-outline-primary" role="button">I code.</button>
                 </a>
@@ -144,5 +177,10 @@
                 </a>
             </div>
         </div>
+        <!-- includes AOS, a fade-in JS library -->
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+          AOS.init();
+        </script>
     </body>
 </html>
