@@ -114,3 +114,17 @@ $(document).ready(function() {
         }
     })
 });
+
+/* a function to handle signing up to comment */
+$(document).ready(function() {
+    $("#open-sign-up-modal").click(function(){
+        $("#sign-up-modal").modal();
+    });
+});
+
+/* a function to handle logging in to comment */
+$(document).ready(function() {
+    $("#open-login-modal").click(function(){
+        $("#login-modal").modal();
+    });
+});
