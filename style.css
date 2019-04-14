@@ -20,6 +20,15 @@
     padding-top: 5%;
 }
 
+.modal-backdrop {
+    background-color: white;
+    opacity: 0.75;
+ }
+
+ .comment {
+    margin: 0% 5%;
+ }
+
 /* gets rid of link decoration on the connection buttons */
 .link:link {
     text-decoration: none;

@@ -167,14 +167,17 @@
             <!-- a header for the comment section-->
             <div class="p-3 mb-2">
                 <h3>Let's Talk.</h3>
-                <p>
-                    Have some questions? Comments? Suggestions or recommendations 
-                    for fellow coffee lovers? Let's have a conversation.
-                    <p class="text-right">
-                        <button type="button" class="btn btn-link" id="open-sign-up-modal">Sign Up</button>
-                        <button type="button" class="btn btn-link" id="open-login-modal">Login</button>
-                    </p>
+                <!-- a space to comment -->
+                <p class="text-right">
+                    <button type="button" class="btn btn-link" id="open-sign-up-modal">Sign Up</button>
+                    <button type="button" class="btn btn-link" id="open-login-modal">Login</button>
                 </p>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Join the conversation.</span>
+                    </div>
+                    <textarea class="form-control" aria-label="With textarea"></textarea>
+                </div>
             </div>
 
             <!-- a sign up modal-->
@@ -233,10 +236,18 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>  
 
             <div class="p-3 mb-2">
-                <div id="comments"></div>
+                <div id="comments">
+                    <div class="card comment">
+                        <div class="card-body">
+                            <h5>Lilie de la Motte</h5>
+                            <p>Wow, this site looks amazing.</p>
+                            <a href="#" class="card-link"> Edit</a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- a series of connection buttons -->
