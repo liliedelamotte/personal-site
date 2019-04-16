@@ -60,7 +60,7 @@ $(document).ready(function() {
         var keycode = (event.keyCode ? event.keyCode : event.which);
         
         // action is only triggered when the user presses the 'enter' key
-        if(keycode == '13') {
+        if (keycode == '13') {
 
             $('#results').empty();
             $('#coffee-search').empty();
@@ -115,16 +115,71 @@ $(document).ready(function() {
     })
 });
 
-/* a function to handle signing up to comment */
+
 $(document).ready(function() {
-    $("#open-sign-up-modal").click(function(){
+
+    var commentArea = document.getElementById("comment-area");
+
+    /* ensures that the user must sign in or 
+    create an account before allowing commenting */
+    setLoginStatus(false);
+
+
+    /* a function to handle signing up to comment */
+    $("#open-sign-up-modal").click(function() {
         $("#sign-up-modal").modal();
     });
-});
 
-/* a function to handle logging in to comment */
-$(document).ready(function() {
-    $("#open-login-modal").click(function(){
+    $("#sign-up-submit").click(function() {
+
+        var signUpUsername = $("#sign-up-username").val();
+        var signUpPassword = $("#sign-up-password").val();
+        $("#sign-up-username").val('');
+        $("#sign-up-password").val('');
+        var signUpUrl = 'http://web.cs.georgefox.edu/comment/ldelamotte17/user/' + signUpUsername;
+
+        $.ajax({
+            type: 'POST', 
+            url: signUpUrl,
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                password: signUpPassword
+            }),
+            crossDomain: true,
+            success: function() {
+                setLoginStatus(true);
+                /* todo */
+            },
+            error: function(data) {
+                alert(JSON.stringify(data));
+            }
+
+        })
+    })
+
+    /* a function to handle logging in to comment */
+    $("#open-login-modal").click(function() {
         $("#login-modal").modal();
     });
+
+
+    /* changes the login status of the user to either allow 
+    them to comment or force them to log in or sign up */
+    function setLoginStatus(loggedIn) {
+        if (!loggedIn) {
+            commentArea.innerHTML = "<div><p>Sign up or log in to comment.</p></div>"
+        }
+        else {
+            commentArea.innerHTML = "<div><textarea class='form-control' aria-label='With textarea' placeholder='Join the conversation.'></textarea></div>";
+        }
+    }
+
+    /* a function to handle editing comments */
+    $("#edit").click(function() {
+        var commentContent = this.$("#comment-content");
+        this.innerHTML = "<div class='card comment'><div class='card-body'><h5>Lilie de la Motte</h5><textarea class='form-control' aria-label='With textarea'>" + commentContent + "</textarea></div><button type='button' class='btn btn-outline-dark btn-sm' id='save'>Save</button></div></div>";
+    })
+
+
 });

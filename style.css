@@ -21,13 +21,13 @@
 }
 
 .modal-backdrop {
-    background-color: white;
+    background-color: white !important;
     opacity: 0.75;
- }
+}
 
- .comment {
+.comment {
     margin: 0% 5%;
- }
+}
 
 /* gets rid of link decoration on the connection buttons */
 .link:link {
