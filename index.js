@@ -51,6 +51,7 @@ $(document).ready(function() {
     });
 });
 
+/* a function to handle the Yelp API */
 $(document).ready(function() {
 
     var coffeeURL = 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=coffee&location=';
@@ -67,6 +68,7 @@ $(document).ready(function() {
 
             var location = $('#location').val().replace(' ', '');
             coffeeURL += location
+
             // clears the input
             $('#location').val('');
 
@@ -84,17 +86,12 @@ $(document).ready(function() {
                         // saves all results in a single variable
                         var totalresults = result.total;
                         // if there are results, they'll be displayed
-                        if (totalresults > 0){
+                        if (totalresults > 0) {
                             $('#coffee-search').append('<div class="p-3 mb-2"><h5>Showing results for ' + location + ':</h5></div>');
                             $.each(result.businesses, function(i, item) {
                                 // store each business's object in a variable
-                                var id = item.id;
-                                var alias = item.alias;
-                                var phone = item.display_phone;
                                 var image = item.image_url;
                                 var name = item.name;
-                                var rating = item.rating;
-                                var reviewcount = item.review_count;
                                 var address = item.location.address1;
                                 var city = item.location.city;
                                 var state = item.location.state;
@@ -115,14 +112,84 @@ $(document).ready(function() {
     })
 });
 
-
 $(document).ready(function() {
 
     var commentArea = document.getElementById('comment-area');
+    getPreviousComments();
 
     /* ensures that the user must sign in or 
     create an account before allowing commenting */
     setLoginStatus(false);
+
+    /* gets all previous comments that have been made and displays them */
+    function getPreviousComments() {
+        $('#comments').empty();
+        $.ajax({
+            type: 'GET',
+            url: 'http://web.cs.georgefox.edu/comment/ldelamotte17/comment/comments',
+            dataType: 'json',
+            contentType: 'application/json',
+            crossDomain: true,
+            success: function(data) {
+                data.forEach(function(comment) {
+                    var user = comment.username;
+                    var content = comment.post_text; 
+                    var id = comment.id;  
+                    if (sessionStorage.getItem("username") == user) {
+                        $('#comments').prepend("<tr><td><h5>" + user + "</h5><p id='comment-content'>" + content + "</p><button type='button' class='btn btn-link' id='edit'>Edit</button><button type='button' class='btn btn-link' id='delete'>Delete</button></td></tr>");
+                        
+                        /* adds a handler to the delete button and removes the comment if pressed */
+                        $("#delete").click(function() {
+                            $(this).closest('tr').remove();
+                            $.ajax({
+                                type: 'DELETE',
+                                url: 'http://web.cs.georgefox.edu/comment/ldelamotte17/comment/comments/' + user + '/' + id,
+                                dataType: 'json',
+                                contentType: 'application/json',
+                                crossDomain: true,
+                                success: getPreviousComments
+                            })
+                        })
+
+                        /* if the user clicks the edit button, a text box appears to edit the comment */
+                        $("#edit").click(function() {
+                            $(this).closest('tr').replaceWith("<tr><td><h5>" + user + "</h5><div class='input-group'><input type='text' class='form-control' id='edit-comment' value='" + content + "'></div></td></tr>");
+                            /* allows a user to edit a previous comment */
+                            $('#edit-comment').keypress(function() {
+
+                                var keycode = (event.keyCode ? event.keyCode : event.which);
+                                
+                                /* action is only triggered when the user presses the 'enter' key */
+                                if (keycode == '13') {
+
+                                    var commentContent = $("#edit-comment").val();
+                                    var editCommentURL = 'http://web.cs.georgefox.edu/comment/ldelamotte17/comment/comments/' + user + '/' + id;
+
+                                    $.ajax({
+                                        type: 'PUT', 
+                                        url: editCommentURL,
+                                        dataType: 'json',
+                                        contentType: 'application/json',
+                                        xhrFields: {
+                                            withCredentials: true
+                                        },
+                                        data: JSON.stringify({
+                                            comment: commentContent
+                                        }),
+                                        crossDomain: true,
+                                        success: getPreviousComments
+                                    })
+                                }
+                            })    
+                        })
+                    }
+                    else {
+                        $('#comments').prepend("<tr><td><h5>" + user + "</h5><p id='comment-content'>" + content + "</p></td></tr>");
+                    }
+                })
+            }
+        })
+    }
 
 
     /* a function to handle signing up to comment */
@@ -149,13 +216,8 @@ $(document).ready(function() {
             }),
             crossDomain: true,
             success: function() {
-                setLoginStatus(true);
-                /* todo */
-            },
-            error: function(data) {
-                alert(JSON.stringify(data));
+                $("#open-sign-up-modal").remove();
             }
-
         })
     })
 
@@ -184,13 +246,16 @@ $(document).ready(function() {
             }),
             crossDomain: true,
             success: function() {
+                if ($("#open-sign-up-modal").length) {$("#open-sign-up-modal").remove();}
+                $("#open-login-modal").replaceWith("<button type='button' class='btn btn-link' id='logout'>Log Out</button>");
+                sessionStorage.setItem("username", loginUsername);
                 setLoginStatus(true);
-                /* todo */
-            },
-            error: function(data) {
-                alert(JSON.stringify(data));
-            }
+                getPreviousComments();
 
+                $("#logout").click(function() {
+                    console.log('sup')
+                })
+            }
         })
     })
 
@@ -198,52 +263,43 @@ $(document).ready(function() {
     them to comment or force them to log in or sign up */
     function setLoginStatus(loggedIn) {
         if (!loggedIn) {
-            commentArea.innerHTML = '<div><p>Sign up or log in to comment.</p></div>';
+            commentArea.innerHTML = '<div><p>Log in to comment.</p></div>';
         }
         else {
-            commentArea.innerHTML = "<input type='text' class='form-control' id='new-comment' placeholder='Join the conversation.'>";
+            commentArea.innerHTML = "<div class='input-group'><input type='text' class='form-control' id='new-comment' placeholder='Join the conversation.'></div>";
+
+            /* allows a user to post a new comment */
+            $('#new-comment').keypress(function() {
+
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                
+                 /* action is only triggered when the user presses the 'enter' key */
+                if (keycode == '13') {
+
+                    var commentContent = $("#new-comment").val();
+                    var commentURL = 'http://web.cs.georgefox.edu/comment/ldelamotte17/comment/comments/' + sessionStorage.getItem("username");
+
+                    $.ajax({
+                        type: 'POST', 
+                        url: commentURL,
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        data: JSON.stringify({
+                            comment: commentContent
+                        }),
+                        crossDomain: true,
+                        success: function() {
+                            getPreviousComments();
+                        }
+                    })
+
+                    /* clears the input */
+                    $('#new-comment').val('');
+                }
+            })    
         }
     }
-
-    /* allows a user to post a new comment */
-    $('#new-comment').keypress(function() {
-
-        var keycode = (event.keyCode ? event.keyCode : event.which);
-        
-        // action is only triggered when the user presses the 'enter' key
-        if (keycode == '13') {
-
-            var commentContent = this.val();
-
-            $.ajax({
-                type: 'POST', 
-                url: loginURL,
-                dataType: 'json',
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    comment: commentContent
-                }),
-                crossDomain: true,
-                success: function() {
-                    $('#comments').append("<tr><td><h5>liliedelamotte</h5><p id='comment-content'>Wow, this site looks amazing.</p><button type='button' class='btn btn-link' id='edit'>Edit</button></td></tr>");
-                    /* todo */
-                },
-                error: function(data) {
-                    alert(JSON.stringify(data));
-                }
-    
-            })
-
-            // clears the input
-            $('#new-comment').val('');
-
-            // reset the url
-        }
-    })
-    
-    /* a function to handle editing comments */
-    $('#edit').click(function() {
-        var commentContent = this.$('#comment-content');
-        this.innerHTML = "<div class='card comment'><div class='card-body'><h5>Lilie de la Motte</h5><textarea class='form-control' aria-label='With textarea'>" + commentContent + "</textarea></div><button type='button' class='btn btn-outline-dark btn-sm' id='save'>Save</button></div></div>";
-    })
 });
