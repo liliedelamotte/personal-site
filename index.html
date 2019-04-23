@@ -30,7 +30,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="index.js"></script>
     </head>
-    <body class="page">
+    <body class="page" onload=''>
 
         <!-- header -->
         <div class="container" 
@@ -168,10 +168,7 @@
             <div class="p-3 mb-2">
                 <h3>Let's Talk.</h3>
                 <!-- a space to comment -->
-                <p class="text-right">
-                    <button type="button" class="btn btn-link" id="open-sign-up-modal">Sign Up</button>
-                    <button type="button" class="btn btn-link" id="open-login-modal">Login</button>
-                </p>
+                <p class="text-right" id="login-space"></p>
             </div>
 
             <!-- a sign up modal-->
@@ -197,7 +194,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-dark" data-dismiss="modal" id="sign-up-submit">Submit</button>
+                            <button type="button" class="btn btn-outline-dark" data-dismiss="modal" id="sign-up-submit" onclick='signUp();'>Submit</button>
                         </div>
                     </div>
                 </div>
@@ -226,7 +223,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-dark" data-dismiss="modal" id="login-submit">Submit</button>
+                            <button type="button" class="btn btn-outline-dark" data-dismiss="modal" id="login-submit" onclick="login();">Submit</button>
                         </div>
                     </div>
                 </div>
