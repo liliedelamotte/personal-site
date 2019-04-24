@@ -17,7 +17,7 @@
 
         <!-- ensures responsiveness -->
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <!-- brings in Bootstrap -->
+        <!-- brings in Bootstrap style sheet -->
         <link 
             rel="stylesheet" 
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
@@ -26,11 +26,13 @@
         >
         <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
         <link rel="stylesheet" href="style.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="index.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> <!-- brings in jquery-->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> <!-- brings in Bootstrap.js for modal use-->
+        <script type="text/javascript" src="coffee-info.js"></script> <!-- a script to handle the material information -->
+        <script type="text/javascript" src="api.js"></script> <!-- a script to handle access to the Yelp api -->
+        <script type="text/javascript" src="comments.js"></script> <!-- a script to handle commenting -->
     </head>
-    <body class="page" onload=''>
+    <body class="page">
 
         <!-- header -->
         <div class="container" 
@@ -162,10 +164,7 @@
                 <div id="coffee-search"></div>
                 <!-- search results-->
                 <div class="row justify-content-between" id="results"></div>
-            </div>
-
-            <!-- a header for the comment section-->
-            <div class="p-3 mb-2">
+                <!-- a header for the comment section -->
                 <h3>Let's Talk.</h3>
                 <!-- a space to comment -->
                 <p class="text-right" id="login-space"></p>
@@ -229,10 +228,24 @@
                 </div>
             </div>  
 
+            <!-- a modal to let user know that the account they have attempted to sign into does not exist -->
+            <div class="modal" id="error-modal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <p>Username and/or password is in an incorrect format. Please try again.</p>
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+
+            <!-- a section for the comments -->
             <div class="p-3 mb-2">
                 <table class="table table-bordered" id="comments"></table>
             </div>
 
+            <!-- a section to comment if the user is logged in -->
             <div class="p-3 mb-2">
                 <div id="comment-area"></div>
             </div>
